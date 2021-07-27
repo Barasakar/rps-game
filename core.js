@@ -1,30 +1,71 @@
 const choices = ["rock", "paper", "scissor"];
-let playerChoice;
+let computerScore = 0;
+let playerScore = 0;
+const buttons = document.querySelectorAll('input');
+function game(playerChoice) {
+    let computer_Choice = computerPlay();
+    
+    if (playerChoice == "rock" && computer_Choice == "scissor") {
+        const currentComputerChoice = document.querySelector("#computerChoice").innerHTML = `Computer's Choice: ${computer_Choice}`;
+        const currentPlayerChoice = document.querySelector("#humanChoice").innerHTML = `Your Choice: ${playerChoice}`;
 
-function game() {
-    if (playerChoice == "rock" && computerPlay() == "scissor") {
-        alert ("player won. Player: rock Computer: scissor");
-    } else if (playerChoice == "rock" && computerPlay() == "paper") {
-        alert ("player lost. Player: rock Computer: paper")
-    } else if (playerChoice == "scissor" && computerPlay() == "paper") {
-        alert ("player wins. Player: scissor Computer: paper")
-    } else if (playerChoice == "scissor" && computerPlay() == "rock") {
-        alert ("player loses. Player: scissor Computer: rock")
-    } else if (playerChoice == "paper" && computerPlay() == "rock") {
-        alert ("player wins. Player: paper Computer: rock")
-    } else if (playerChoice == "paper" && computerPlay() == "scissor") {
-        alert ("player loses. Player: paper Computer: scissor")
+        playerScore += 1;
+        
+        update(playerScore, computerScore);
+    } else if (playerChoice == "rock" && computer_Choice == "paper") {
+        const currentComputerChoice = document.querySelector("#computerChoice").innerHTML = `Computer's Choice: ${computer_Choice}`;
+        const currentPlayerChoice = document.querySelector("#humanChoice").innerHTML = `Your Choice: ${playerChoice}`;
+        computerScore += 1;
+        update(playerScore, computerScore);
+    } else if (playerChoice == "scissor" && computer_Choice == "paper") {
+        const currentComputerChoice = document.querySelector("#computerChoice").innerHTML = `Computer's Choice: ${computer_Choice}`;
+        const currentPlayerChoice = document.querySelector("#humanChoice").innerHTML = `Your Choice: ${playerChoice}`;
+        playerScore += 1;
+        update(playerScore, computerScore);
+    } else if (playerChoice == "scissor" && computer_Choice == "rock") {
+        const currentComputerChoice = document.querySelector("#computerChoice").innerHTML = `Computer's Choice: ${computer_Choice}`;
+        const currentPlayerChoice = document.querySelector("#humanChoice").innerHTML = `Your Choice: ${playerChoice}`;
+        computerScore += 1;
+        update(playerScore, computerScore);
+    } else if (playerChoice == "paper" && computer_Choice == "rock") {
+        const currentComputerChoice = document.querySelector("#computerChoice").innerHTML = `Computer's Choice: ${computer_Choice}`;
+        const currentPlayerChoice = document.querySelector("#humanChoice").innerHTML = `Your Choice: ${playerChoice}`;
+        playerScore += 1;
+        
+        update(playerScore, computerScore);
+    } else if (playerChoice == "paper" && computer_Choice == "scissor") {
+        const currentComputerChoice = document.querySelector("#computerChoice").innerHTML = `Computer's Choice: ${computer_Choice}`;
+        const currentPlayerChoice = document.querySelector("#humanChoice").innerHTML = `Your Choice: ${playerChoice}`;
+        computerScore += 1 ;
+        update(playerScore, computerScore);
     } else {
-        alert ("same result");
+        const currentComputerChoice = document.querySelector("#computerChoice").innerHTML = `Computer's Choice: ${computer_Choice}`;
+        const currentPlayerChoice = document.querySelector("#humanChoice").innerHTML = `Your Choice: ${playerChoice}`;
+        update(playerScore, computerScore);
     }
 } 
 
-function computerPlay() {
-   let computerChoice = choices[Math.floor(Math.random() * choices.length)];
-   return computerChoice;
+function update(playerScore, computerScore) {
+    if (playerScore == 5 || computerScore == 5) {
+        if (playerScore > computerScore) {
+            document.getElementById('result').innerHTML = "You win!";
+        } else if (playerScore < computerScore) {
+            document.getElementById('result').innerHTML = "Computer wins!";
+        } else {
+            document.getElementById('result').innerHTML = "Draw!";
+        }
+    }
+    const player_Score = document.querySelector("#yourScore").innerHTML = `Your Score: ${playerScore}`;
+    const computer_Score = document.querySelector("#computerScore").innerHTML = `Computer's Score: ${computerScore}`;
 }
 
-function humanPlay(humanChoice) {
-    playerChoice = humanChoice;
-    
+function computerPlay() {
+    return String(choices[Math.floor(Math.random() * choices.length)]);
 }
+
+
+buttons.forEach(button =>{
+    button.addEventListener('click', function(){
+        game(button.value)
+    })
+})
